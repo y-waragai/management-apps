@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    <input v-model="projectName" placeholder="please input project name">
-    <button @click="add">ADD</button>
-    <DisplayProjectTimers :projectList="projectList"/>
+    <div class="container">
+      <div class="input">
+        <input v-model="projectName" placeholder="project name">
+        <button @click="add">ADD</button>
+      </div>
+      <DisplayProjectTimers :projectList="projectList"/>
+    </div>
   </div>
 </template>
 
@@ -25,13 +29,13 @@ export default {
       // ローカルストレージに案件追加
       const project = {
         name: this.projectName,
-        startTime: 0,
+        workingTime: 0,
         restTime: 0,
-        endTime: 0,
       };
 
       this.projectList.push(project);
       this.$localStorage.set('myProjects', JSON.stringify(this.projectList));
+      this.projectName = '';
     },
     delete() {
       // ローカルストレージの案件を削除
@@ -53,4 +57,13 @@ export default {
 </script>
 
 <style>
+.container {
+  background-color: pink;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.container .input {
+  text-align: center;
+}
 </style>
