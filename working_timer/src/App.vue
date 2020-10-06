@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container">
       <div class="input">
-        <input v-model="projectName" placeholder="project name">
+        <input class="test" v-model="projectName" placeholder="project name">
         <button @click="add">ADD</button>
       </div>
       <DisplayProjectTimers :projectList="projectList"/>
