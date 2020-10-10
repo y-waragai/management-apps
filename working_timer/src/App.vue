@@ -1,11 +1,15 @@
 <template>
   <div id="app">
     <div class="container">
+      <h1>Working Timers</h1>
       <div class="input">
         <input class="test" v-model="projectName" placeholder="project name">
-        <button @click="add">ADD</button>
+        <button @click="addProject">ADD</button>
       </div>
-      <DisplayProjectTimers :projectList="projectList"/>
+      <DisplayProjectTimers v-if="projectList.length" :projectList="projectList"
+        @timer-on="timerOn($event)"
+        @delete-project="deleteProject($event)"
+      />
     </div>
   </div>
 </template>
@@ -25,8 +29,12 @@ export default {
     DisplayProjectTimers,
   },
   methods: {
-    add() {
+    addProject() {
       // ローカルストレージに案件追加
+      if (!this.projectName || !this.projectName.trim().length) {
+        alert('案件名が未入力です');
+        return;
+      }
       const project = {
         name: this.projectName,
         workingTime: 0,
@@ -37,18 +45,27 @@ export default {
       this.$localStorage.set('myProjects', JSON.stringify(this.projectList));
       this.projectName = '';
     },
-    delete() {
+    deleteProject(params) {
       // ローカルストレージの案件を削除
+      const newProjects = [];
+      for (let i = 0; i < this.projectList.length; i += 1) {
+        if (params.project.name === this.projectList[i].name) {
+          continue;
+        }
+        newProjects.push(this.projectList[i]);
+      }
+      this.$localStorage.set('myProjects', JSON.stringify(newProjects));
+      this.projectList = newProjects;
     },
-    timerOn() {
-
+    timerOn(params) {
+      console.log(params);
     },
     timerStop() {
     },
   },
   created() {
     const myProjects = JSON.parse(this.$localStorage.get('myProjects'));
-    console.log(myProjects);
+    if (!myProjects) return;
     for (let i = 0; i < myProjects.length; i += 1) {
       this.projectList.push(myProjects[i]);
     }
@@ -57,13 +74,26 @@ export default {
 </script>
 
 <style>
+body {
+  font-family: Verdana, sans-serif;
+}
 .container {
-  background-color: pink;
+  /* background-color: pink; */
   width: 500px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
+}
+.container h1 {
+  font-size: 24px;
+  padding: 10px 0;
 }
 .container .input {
-  text-align: center;
+  margin-top: 20px;
+}
+.container h1,
+.container .input {
+  margin-left: 110px;
+}
+.container .input button {
+  margin-left: 10px;
 }
 </style>
