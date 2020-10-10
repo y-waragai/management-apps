@@ -24,11 +24,6 @@ export default {
   props: {
     projectList: Array,
   },
-  data() {
-    return {
-      isDelete: false,
-    };
-  },
   methods: {
     timerOn(project) {
       this.$emit('timer-on', { project });
