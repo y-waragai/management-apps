@@ -4,17 +4,18 @@
         <strong class="project">案件</strong>
         <strong class="workTime">稼働時間</strong>
     </li>
-    <div class="fadeIn" v-for="(project, i) in projectList" :key="i">
-      <li>
+    <transition-group tag="ul">
+      <li v-for="(project, i) in projectList" :key="i">
         <span>{{ project.name }}</span>
         <span class="time">
           {{ project.workingTime }}
-          <button @click="timerOn(project)">start</button>
+          <button @click="start(i)" :disabled="project.isDisabledStart">start</button>
+          <button @click="stop(i)" :disabled="project.isDisabledStop">stop</button>
+          <button @click="reset(i)" :disabled="project.isDisabledReset">reset</button>
           <span class="del" @click="deleteProject(project)">[x]</span>
         </span>
       </li>
-    </div>
-    <!-- <button>休憩</button> -->
+    </transition-group>
   </ul>
 </template>
 
@@ -25,12 +26,18 @@ export default {
     projectList: Array,
   },
   methods: {
-    timerOn(project) {
-      this.$emit('timer-on', { project });
+    start(index) {
+      this.$emit('start', index);
+    },
+    stop(index) {
+      this.$emit('stop', index);
+    },
+    reset(index) {
+      this.$emit('reset', index);
     },
     deleteProject(project) {
-      this.isDelete = true;
-      this.$emit('delete-project', { project });
+      console.log(project);
+      this.$emit('delete-project', project);
     },
   },
 };
@@ -47,7 +54,7 @@ li {
 }
 strong.workTime {
   float: right;
-  margin-right: 110px;
+  margin-right: 170px;
 }
 span.time {
   float: right;
@@ -73,16 +80,13 @@ span.time button {
     opacity: 1;
   }
 }
-.fadeOut {
-  animation-name: fadeOut;
-  animation-duration: 1s;
+.v-enter-active {
+  transition: all 0.8s;
 }
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+.v-enter, .v-leave-to {
+  opacity: 0;
+}
+.v-enter-to,{
+  opacity: 1;
 }
 </style>

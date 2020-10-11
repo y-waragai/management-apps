@@ -7,7 +7,9 @@
         <button @click="addProject">ADD</button>
       </div>
       <DisplayProjectTimers v-if="projectList.length" :projectList="projectList"
-        @timer-on="timerOn($event)"
+        @start="start($event)"
+        @stop="stop($event)"
+        @reset="reset($event)"
         @delete-project="deleteProject($event)"
       />
     </div>
@@ -23,6 +25,7 @@ export default {
     return {
       projectName: '',
       projectList: [],
+      timeoutId: null,
     };
   },
   components: {
@@ -39,17 +42,20 @@ export default {
         name: this.projectName,
         workingTime: 0,
         restTime: 0,
+        isDisabledStop: true,
+        isDisabledStart: false,
+        isDisabledReset: true,
       };
 
       this.projectList.push(project);
       this.$localStorage.set('myProjects', JSON.stringify(this.projectList));
       this.projectName = '';
     },
-    deleteProject(params) {
+    deleteProject(project) {
       // ローカルストレージの案件を削除
       const newProjects = [];
       for (let i = 0; i < this.projectList.length; i += 1) {
-        if (params.project.name === this.projectList[i].name) {
+        if (project.name === this.projectList[i].name) {
           continue;
         }
         newProjects.push(this.projectList[i]);
@@ -57,10 +63,37 @@ export default {
       this.$localStorage.set('myProjects', JSON.stringify(newProjects));
       this.projectList = newProjects;
     },
-    timerOn(params) {
-      console.log(params);
+    start(i) {
+      this.projectList[i].isDisabledStop = false;
+      this.projectList[i].isDisabledReset = true;
+      this.isDisabledAllStart(true);
+
+      let startTime = Date.now();
+      startTime -= this.projectList[i].workingTime;
+      this.countUp(startTime, this.projectList[i]);
     },
-    timerStop() {
+    stop(i) {
+      clearTimeout(this.timeoutId);
+      this.projectList[i].isDisabledStop = true;
+      this.projectList[i].isDisabledReset = false;
+      this.isDisabledAllStart(false);
+    },
+    reset(i) {
+      this.projectList[i].workingTime = 0;
+      this.projectList[i].isDisabledReset = true;
+    },
+    countUp(startTime, obj) {
+      const totalTime = Date.now() - startTime;
+      this.timeoutId = setTimeout(() => {
+        obj.workingTime = totalTime;
+        this.countUp(startTime, obj);
+      }, 10);
+    },
+    isDisabledAllStart(flg) {
+      // 全てのstartボタンを活性、非活性に設定
+      for (let i2 = 0; i2 < this.projectList.length; i2 += 1) {
+        this.projectList[i2].isDisabledStart = flg;
+      }
     },
   },
   created() {
