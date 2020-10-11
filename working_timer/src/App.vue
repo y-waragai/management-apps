@@ -42,9 +42,10 @@ export default {
         name: this.projectName,
         workingTime: 0,
         restTime: 0,
-        isDisabledStop: true,
         isDisabledStart: false,
-        isDisabledReset: true,
+        isDisplaydStart: true,
+        isDisplayStop: false,
+        isDisplayReset: false,
       };
 
       this.projectList.push(project);
@@ -64,9 +65,9 @@ export default {
       this.projectList = newProjects;
     },
     start(i) {
-      this.projectList[i].isDisabledStop = false;
-      this.projectList[i].isDisabledReset = true;
-      this.isDisabledAllStart(true);
+      this.projectList[i].isDisplaydStart = false;
+      this.projectList[i].isDisplayStop = true;
+      this.allDisabledStart(true);
 
       let startTime = Date.now();
       startTime -= this.projectList[i].workingTime;
@@ -74,13 +75,14 @@ export default {
     },
     stop(i) {
       clearTimeout(this.timeoutId);
-      this.projectList[i].isDisabledStop = true;
-      this.projectList[i].isDisabledReset = false;
-      this.isDisabledAllStart(false);
+      this.projectList[i].isDisplayStop = false;
+      this.projectList[i].isDisplayReset = true;
+      this.allDisabledStart(false);
     },
     reset(i) {
       this.projectList[i].workingTime = 0;
-      this.projectList[i].isDisabledReset = true;
+      this.projectList[i].isDisplayReset = false;
+      this.projectList[i].isDisplaydStart = true;
     },
     countUp(startTime, obj) {
       const totalTime = Date.now() - startTime;
@@ -89,10 +91,10 @@ export default {
         this.countUp(startTime, obj);
       }, 10);
     },
-    isDisabledAllStart(flg) {
+    allDisabledStart(flg) {
       // 全てのstartボタンを活性、非活性に設定
-      for (let i2 = 0; i2 < this.projectList.length; i2 += 1) {
-        this.projectList[i2].isDisabledStart = flg;
+      for (let i = 0; i < this.projectList.length; i += 1) {
+        this.projectList[i].isDisabledStart = flg;
       }
     },
   },
@@ -112,7 +114,7 @@ body {
 }
 .container {
   /* background-color: pink; */
-  width: 500px;
+  width: 600px;
   margin: auto;
 }
 .container h1 {

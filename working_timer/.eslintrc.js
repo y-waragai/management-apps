@@ -16,5 +16,6 @@ module.exports = {
     'no-continue': 'off',
     "no-param-reassign": 'off',
     "no-unused-vars": "off",
+    "max-len": "off",
   },
 };

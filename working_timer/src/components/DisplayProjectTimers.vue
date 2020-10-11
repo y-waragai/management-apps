@@ -9,9 +9,9 @@
         <span>{{ project.name }}</span>
         <span class="time">
           {{ project.workingTime }}
-          <button @click="start(i)" :disabled="project.isDisabledStart">start</button>
-          <button @click="stop(i)" :disabled="project.isDisabledStop">stop</button>
-          <button @click="reset(i)" :disabled="project.isDisabledReset">reset</button>
+          <button v-show="project.isDisplaydStart" @click="start(i)" :disabled="project.isDisabledStart">start</button>
+          <button v-show="project.isDisplayStop" @click="stop(i)">stop</button>
+          <button v-show="project.isDisplayReset" @click="reset(i)">reset</button>
           <span class="del" @click="deleteProject(project)">[x]</span>
         </span>
       </li>
@@ -36,7 +36,6 @@ export default {
       this.$emit('reset', index);
     },
     deleteProject(project) {
-      console.log(project);
       this.$emit('delete-project', project);
     },
   },
@@ -54,7 +53,7 @@ li {
 }
 strong.workTime {
   float: right;
-  margin-right: 170px;
+  margin-right: 100px;
 }
 span.time {
   float: right;
