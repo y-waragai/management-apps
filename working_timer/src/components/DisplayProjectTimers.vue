@@ -1,21 +1,23 @@
 <template>
   <ul class="fadeIn">
     <li>
-        <strong class="project">案件</strong>
-        <strong class="workTime">稼働時間</strong>
+        <strong class="header1">案件</strong>
+        <strong class="header2">稼働時間</strong>
     </li>
     <transition-group tag="ul">
       <li v-for="(project, i) in projectList" :key="i">
         <span>{{ project.name }}</span>
         <span class="time">
-          {{ project.workingTime }}
-          <button v-show="project.isDisplaydStart" @click="start(i)" :disabled="project.isDisabledStart">start</button>
-          <button v-show="project.isDisplayStop" @click="stop(i)">stop</button>
-          <button v-show="project.isDisplayReset" @click="reset(i)">reset</button>
+          {{ $moment(project.workingTime).utc().format('HH:mm:ss') }}
+          <button @click="onStart(i)" :disabled="project.isDisabledStart">start</button>
           <span class="del" @click="deleteProject(project)">[x]</span>
         </span>
       </li>
     </transition-group>
+    <div class="rest">
+      <span>{{ $moment(rest.time).utc().format('HH:mm:ss') }}</span>
+      <button @click="onRest()">{{ !rest.state ? '休憩開始' : '休憩終了' }}</button>
+    </div>
   </ul>
 </template>
 
@@ -23,17 +25,15 @@
 export default {
   name: 'DisplayProjectTimers',
   props: {
+    rest: Object,
     projectList: Array,
   },
   methods: {
-    start(index) {
-      this.$emit('start', index);
+    onStart(index) {
+      this.$emit('on-start', index);
     },
-    stop(index) {
-      this.$emit('stop', index);
-    },
-    reset(index) {
-      this.$emit('reset', index);
+    onRest() {
+      this.$emit('on-rest');
     },
     deleteProject(project) {
       this.$emit('delete-project', project);
@@ -51,21 +51,31 @@ li {
   width: 100%;
   line-height: 3;
 }
-strong.workTime {
-  float: right;
-  margin-right: 100px;
-}
-span.time {
+.header2, .time, .rest {
   float: right;
 }
-span.time .del {
+.header2 {
+  margin-right: 110px;
+}
+.time button {
+  margin-left: 20px;
+  text-align: center;
+  width: 40px;
+}
+.rest {
+  margin-top: 40px;
+}
+.rest button {
+  width: 79px;
+}
+.rest span {
+  margin-right: 25px;
+}
+.del {
   font-size: 12px;
   margin-left: 20px;
   cursor: pointer;
   color: rgb(119, 119, 238);
-}
-span.time button {
-  margin-left: 20px;
 }
 .fadeIn {
   animation-name: fadeIn;
@@ -85,7 +95,7 @@ span.time button {
 .v-enter, .v-leave-to {
   opacity: 0;
 }
-.v-enter-to,{
+.v-enter-to {
   opacity: 1;
 }
 </style>
