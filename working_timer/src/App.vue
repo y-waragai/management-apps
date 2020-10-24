@@ -111,26 +111,5 @@ export default {
 </script>
 
 <style>
-body {
-  font-family: Verdana, sans-serif;
-}
-.container {
-  /* background-color: pink; */
-  width: 600px;
-  margin: auto;
-}
-.container h1 {
-  font-size: 24px;
-  padding: 10px 0;
-}
-.container .input {
-  margin-top: 20px;
-}
-.container h1,
-.container .input {
-  margin-left: 140px;
-}
-.container .input button {
-  margin-left: 10px;
-}
+@import './assets/style.css';
 </style>

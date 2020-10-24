@@ -1,0 +1,83 @@
+/* App.vue */
+body {
+  font-family: Verdana, sans-serif;
+}
+button {
+  cursor: pointer;
+}
+.container {
+  /* background-color: pink; */
+  width: 600px;
+  margin: auto;
+}
+.container h1 {
+  font-size: 24px;
+  padding: 10px 0;
+}
+.container .input {
+  margin-top: 20px;
+}
+.container h1,
+.container .input {
+  margin-left: 140px;
+}
+.container .input button {
+  margin-left: 10px;
+}
+
+/* DisplayProjectTimers.vue */
+ul {
+  list-style: none;
+  padding: 0px;
+}
+li {
+  width: 100%;
+  line-height: 3;
+}
+.header2, .time, .rest {
+  float: right;
+}
+.header2 {
+  margin-right: 110px;
+}
+.time button {
+  margin-left: 20px;
+  text-align: center;
+  width: 40px;
+}
+.rest {
+  margin-top: 40px;
+}
+.rest button {
+  width: 79px;
+}
+.rest span {
+  margin-right: 25px;
+}
+.del {
+  font-size: 12px;
+  margin-left: 20px;
+  cursor: pointer;
+  color: rgb(119, 119, 238);
+}
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.v-enter-active {
+  transition: all 0.8s;
+}
+.v-enter, .v-leave-to {
+  opacity: 0;
+}
+.v-enter-to {
+  opacity: 1;
+}
