@@ -6,7 +6,6 @@ button {
   cursor: pointer;
 }
 .container {
-  /* background-color: pink; */
   width: 600px;
   margin: auto;
 }
@@ -49,10 +48,8 @@ li {
   margin-top: 40px;
 }
 .rest button {
+  margin-left: 25px;
   width: 79px;
-}
-.rest span {
-  margin-right: 25px;
 }
 .del {
   font-size: 12px;
@@ -68,7 +65,7 @@ span.name {
   text-overflow: ellipsis;
   -webkit-text-overflow: ellipsis;
 }
-.fadeIn {
+.timers {
   animation-name: fadeIn;
   animation-duration: 1s;
 }
@@ -90,7 +87,7 @@ span.name {
   opacity: 1;
 }
 
-@media screen and (max-width:414px){
+@media screen and (max-width:414px) {
   body {
     font-size: 13px;
   }
@@ -106,6 +103,19 @@ span.name {
   }
   .container .input {
     margin-left: 60px;
+  }
+  .header2 {
+    margin-right: 95px;
+  }
+  .time button {
+    margin-left: 10px;
+  }
+  .rest button {
+    margin-left: 13px;
+    width: 74px;
+  }
+  .del {
+    margin-left: 15px;
   }
   span.name {
     width: 135px;

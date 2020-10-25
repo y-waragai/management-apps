@@ -1,5 +1,5 @@
 <template>
-  <ul class="fadeIn">
+  <ul class="timers">
     <li>
         <strong class="header1">案件</strong>
         <strong class="header2">稼働時間</strong>
