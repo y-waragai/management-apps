@@ -12,7 +12,7 @@ button {
 }
 .container h1 {
   font-size: 24px;
-  padding: 10px 0;
+  padding: 10px 0 0 0;
 }
 .container .input {
   margin-top: 20px;
@@ -42,6 +42,7 @@ li {
 }
 .time button {
   margin-left: 20px;
+  text-align: center;
   width: 40px;
 }
 .rest {
@@ -87,4 +88,26 @@ span.name {
 }
 .v-enter-to {
   opacity: 1;
+}
+
+@media screen and (max-width:414px){
+  body {
+    font-size: 13px;
+  }
+  .container {
+    width: 325px;
+    margin: auto;
+  }
+  .container h1 {
+    font-size: 17px;
+  }
+  .container h1 {
+    margin-left: 85px;
+  }
+  .container .input {
+    margin-left: 60px;
+  }
+  span.name {
+    width: 135px;
+  }
 }
