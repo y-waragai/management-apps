@@ -6,7 +6,7 @@
     </li>
     <transition-group tag="ul">
       <li v-for="(project, i) in projectList" :key="i">
-        <span>{{ project.name }}</span>
+        <span class="name">{{ project.name }}</span>
         <span class="time">
           {{ $moment(project.workingTime).utc().format('HH:mm:ss') }}
           <button @click="onStart(i)" :disabled="project.isDisabledStart">start</button>
