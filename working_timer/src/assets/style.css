@@ -42,7 +42,6 @@ li {
 }
 .time button {
   margin-left: 20px;
-  text-align: center;
   width: 40px;
 }
 .rest {
@@ -88,26 +87,4 @@ span.name {
 }
 .v-enter-to {
   opacity: 1;
-}
-
-@media screen and (max-width:414px){
-  .container {
-    /* background-color: pink; */
-    width: 400px;
-    margin: auto;
-  }
-  .container h1 {
-    font-size: 24px;
-    padding: 10px 0;
-  }
-  .container .input {
-    margin-top: 20px;
-  }
-  .container h1,
-  .container .input {
-    margin-left: 140px;
-  }
-  .container .input button {
-    margin-left: 10px;
-  }
 }
