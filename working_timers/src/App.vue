@@ -3,7 +3,7 @@
     <div class="container">
       <h1>Working Timers</h1>
       <div class="input">
-        <input v-model="projectName" placeholder="project name">
+        <input @keyup.enter="addProject" v-model="projectName" placeholder="project name">
         <button @click="addProject">ADD</button>
       </div>
       <DisplayProjectTimers v-if="projectList.length" :projectList="projectList" :rest="rest"
