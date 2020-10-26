@@ -45,7 +45,6 @@ export default {
       const project = {
         name: this.projectName,
         workingTime: 0,
-        state: 'stop',
       };
       this.projectList.push(project);
       this.$localStorage.set('myProjects', JSON.stringify(this.projectList));
@@ -65,8 +64,6 @@ export default {
     },
     onStart(i) {
       clearTimeout(this.timeoutId);
-      this.projectList[i].state = 'working';
-      this.$localStorage.set('myProjects', JSON.stringify(this.projectList));
       let startTime = Date.now();
       startTime -= this.projectList[i].workingTime;
       this.countUp(startTime, i);
