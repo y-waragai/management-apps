@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <h1>Working Timers</h1>
+      <h1>Working Timer</h1>
       <div class="input">
         <input @keyup.enter="addProject" v-model="projectName" placeholder="project name">
         <button @click="addProject">add</button>
