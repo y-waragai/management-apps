@@ -45,7 +45,6 @@ export default {
       const project = {
         name: this.projectName,
         workingTime: 0,
-        startDate: null,
         state: 'stop',
       };
       this.projectList.push(project);
@@ -102,15 +101,6 @@ export default {
       this.rest.time = 0;
       this.rest.state = false;
     },
-    continueCountup(i) {
-      if (i === -1) {
-        return;
-      }
-
-      let startTime = Date.now();
-      startTime -= this.projectList[i].workingTime;
-      this.countUp(startTime, i);
-    },
   },
   created() {
     const myProjects = JSON.parse(this.$localStorage.get('myProjects'));
@@ -118,11 +108,6 @@ export default {
     for (let i = 0; i < myProjects.length; i += 1) {
       this.projectList.push(myProjects[i]);
     }
-
-    this.continueCountup(this.projectList.findIndex((item) => item.state === 'working'));
-  },
-  beforeDestroy() {
-    this.$localStorage.set('myProjects', JSON.stringify(this.projectList));
   },
 };
 </script>

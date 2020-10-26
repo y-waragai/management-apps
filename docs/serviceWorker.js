@@ -1,11 +1,24 @@
-// service-worker.js
+const STATIC_DATA = [
+  'index.html',
+  '/css/normalize.css',
+  '/css/main.css',
+  '/js/main.js'
+];
+
 self.addEventListener('install', function(e) {
-  console.log('[ServiceWorker] Install');
+ e.waitUntil(
+   caches.open('cache_v1').then(function(cache) {
+     return cache.addAll(STATIC_DATA);
+   })
+ );
 });
 
-self.addEventListener('activate', function(e) {
-  console.log('[ServiceWorker] Activate');
-});
+self.addEventListener('fetch', function(event) {
+ console.log(event.request.url);
 
-// 現状では、この処理を書かないとService Workerが有効と判定されないようです
-self.addEventListener('fetch', function(event) {});
+ event.respondWith(
+   caches.match(event.request).then(function(response) {
+     return response || fetch(event.request);
+   })
+ );
+});
