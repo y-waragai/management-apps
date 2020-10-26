@@ -9,14 +9,14 @@
         <span class="name">{{ project.name }}</span>
         <span class="time">
           {{ $moment(project.workingTime).utc().format('HH:mm:ss') }}
-          <button @click="onStart(i)" :disabled="project.isDisabledStart">start</button>
+          <button @click="onStart(i)" :disabled="rest.state">start</button>
           <span class="del" @click="deleteProject(project)">[x]</span>
         </span>
       </li>
     </transition-group>
     <div class="rest">
       <span>{{ $moment(rest.time).utc().format('HH:mm:ss') }}</span>
-      <button @click="onRest()">{{ !rest.state ? '休憩開始' : '休憩終了' }}</button>
+      <button @click="onRest">{{ !rest.state ? '休憩開始' : '休憩終了' }}</button>
     </div>
   </ul>
 </template>
@@ -34,6 +34,9 @@ export default {
     },
     onRest() {
       this.$emit('on-rest');
+    },
+    onReset() {
+      this.$emit('on-reset');
     },
     deleteProject(project) {
       this.$emit('delete-project', project);
