@@ -14,10 +14,17 @@
         </span>
       </li>
     </transition-group>
-    <div class="rest">
-      <span>{{ $moment(rest.time).utc().format('HH:mm:ss') }}</span>
-      <button @click="onRest">{{ !rest.state ? '休憩開始' : '休憩終了' }}</button>
-    </div>
+    <li>
+      <div class="footer">
+        <div class="rest">
+          <span>{{ $moment(rest.time).utc().format('HH:mm:ss') }}</span>
+          <button @click="onRest">{{ !rest.state ? '休憩開始' : '休憩終了' }}</button>
+        </div>
+        <div class="reset">
+          <button @click="onReset">reset</button>
+        </div>
+      </div>
+    </li>
   </ul>
 </template>
 

@@ -33,7 +33,7 @@ li {
   width: 100%;
   line-height: 3;
 }
-.header2, .time, .rest {
+.header2, .time, .footer {
   float: right;
 }
 .header2 {
@@ -44,12 +44,17 @@ li {
   text-align: center;
   width: 40px;
 }
-.rest {
+.footer {
   margin-top: 40px;
 }
-.rest button {
+.footer .rest button {
   margin-left: 25px;
   width: 79px;
+}
+.footer .reset button {
+  margin-left: 100px;
+  margin-top: 40px;
+  width: 50px;
 }
 .del {
   font-size: 12px;
@@ -110,7 +115,7 @@ span.name {
   .time button {
     margin-left: 10px;
   }
-  .rest button {
+  .footer .rest button {
     margin-left: 13px;
     width: 74px;
   }
