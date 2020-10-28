@@ -93,7 +93,11 @@ export default {
     },
     onReset() {
       clearTimeout(this.timeoutId);
-      window.location.reload();
+      for (let i = 0; i < this.projectList.length; i += 1) {
+        this.projectList[i].workingTime = 0;
+      }
+      this.rest.time = 0;
+      this.rest.state = false;
     },
   },
   created() {
