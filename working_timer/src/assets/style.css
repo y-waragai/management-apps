@@ -23,6 +23,10 @@ button {
 .container .input button {
   margin-left: 10px;
 }
+input[type=text] {
+  font-size: 16px;
+  transform: scale(0.8);
+}
 
 /* DisplayProjectTimers.vue */
 ul {
